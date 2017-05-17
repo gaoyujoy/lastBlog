@@ -1,0 +1,14 @@
+_codesync/
+.settings/
+.buildpath
+.project
+.vscode
+.vscode/*
+.history
+.idea
+node_modules
+node_modules/*
+public
+public/*
+templates
+templates/*
