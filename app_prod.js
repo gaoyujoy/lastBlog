@@ -15,7 +15,7 @@ var rm = require('rimraf');
 var chalk = require('chalk');
 var webpack = require('webpack');
 var config = require('./build/config');
-var webpackConfig = require('./build/webpack.dev.conf');
+var webpackConfig = require('./build/webpack.prod.conf');
 import mongooseModules from './modules/modules.js'
 var spinner = ora('building for production...')
 spinner.start()
@@ -51,15 +51,16 @@ app.use(session({
 }));
 
 app.use(convert(bodyparser));
-app.use(convert(require('koa-static')(`${__dirname}/public`)));
-app.use(convert(views(`${__dirname}/templates`)));
+app.use(convert(require('koa-static')(`${__dirname}/dist`)));
+app.use(convert(views(`${__dirname}/dist`)));
 
 //配置数据库
 const mongoOptions = {
 	user: 'gaoyu',
-	pass: 'gjy321456'
+	pass: 'gjy321456',
+  useMongoClient: true
 };
-mongoose.connect(`mongodb://123.207.124.58/gaoyublog`, mongoOptions); // 数据库链接
+mongoose.connect(`mongodb://127.0.0.1/gaoyublog`, mongoOptions); // 数据库链接
 const db = mongoose.connection;
 const DBModule = new mongooseModules(mongoose);
 db.on('error', console.error.bind(console, 'connection error:'));

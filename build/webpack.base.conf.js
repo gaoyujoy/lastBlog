@@ -5,7 +5,7 @@ var config = require('./config')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var glob = require('glob');
-var entries =  utils.getMultiEntry('./src/views/**/*.js'); // 获得入口js文件
+var entries =  utils.getMultiEntry('./src/module/**/*.js'); // 获得入口js文件
 var chunks = Object.keys(entries);
 
 console.log(chunks)
@@ -92,12 +92,12 @@ var webpackConfig = {
   ]
 }
 
-var pages =  utils.getMultiEntry('./src/views/**/*.html');
+var pages =  utils.getMultiEntry('./src/module/**/*.html');
 for (var pathname in pages) {
 
   var conf = {
     //filename: pathname + '.html',
-    filename: '../templates/'+pathname + '.html',
+    filename: pathname + '.html',
     template: pages[pathname], // 模板路径
     chunks: ['vendor',pathname], // 每个html引用的js模块
     inject: true,              // js插入位置

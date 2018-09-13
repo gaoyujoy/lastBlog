@@ -8,7 +8,7 @@ const bodyparser = require('koa-bodyparser')();
 const mongoose = require('mongoose');
 import session from "koa2-cookie-session";
 var path = require('path');
-process.env.NODE_ENV = 'production'
+process.env.NODE_ENV = 'development'
 
 var ora = require('ora');
 var rm = require('rimraf');
@@ -56,19 +56,26 @@ app.use(session({
 }));
 
 app.use(convert(bodyparser));
-app.use(convert(require('koa-static')(`${__dirname}/public`)));
-app.use(convert(views(`${__dirname}/templates`)));
-
+app.use(convert(require('koa-static')(`${__dirname}/dist`)));
+app.use(convert(views(`${__dirname}/dist`)));
+// db.createUser(
+//     {
+//       user:"gaoyu",
+//       pwd:"gjy321456",
+//       roles: [ { role: "readWrite", db: "gaoyublog" } ]
+//     }
+//  )
 //配置数据库
 const mongoOptions = {
 	user: 'gaoyu',
-	pass: 'gjy321456'
+    pass: 'gjy321456',
+    useNewUrlParser: true
 };
-mongoose.connect(`mongodb://123.207.124.58/gaoyublog`, mongoOptions); // 数据库链接
+mongoose.connect(`mongodb://127.0.0.1/gaoyublog`, mongoOptions); // 数据库链接
 const db = mongoose.connection;
 const DBModule = new mongooseModules(mongoose);
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
+db.once('openUri', function (callback) {
 	console.log("db opened")
 });
 
@@ -85,4 +92,4 @@ const addRouters = (path) => {
 addRouters(__dirname + '/routers');
 app.use(router.routes(), router.allowedMethods());
 
-let server = app.listen(process.env.PORT||3001);
+let server = app.listen(process.env.PORT || 3001);
