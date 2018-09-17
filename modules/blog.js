@@ -33,11 +33,11 @@ export default class {
         var Blog = mongoose.model('Blog', blogSchema);
 
         this.addBlog = blogInfo => { 
-            return new Promise((resolve, rejects) => { 
+            return new Promise((resolve, reject) => { 
                 var blog = new Blog(blogInfo);
                 blog.save((err, data)=> {
                     if (err) {
-                        rejects('数据库错误');
+                        reject('数据库错误');
                     } else {
                         resolve({code:0, msg: '插入成功', data: data});
                     }
@@ -46,10 +46,10 @@ export default class {
         };
 
         this.getBlog = _id => { 
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 Blog.findOne({ _id: _id }, (err, data) => {
                     if (err) {
-                        rejects('数据库错误');
+                        reject('数据库错误');
                     } else {
                         resolve({ code: 0, data: data });
                     }
@@ -58,11 +58,11 @@ export default class {
         }
 
         this.updateBlog = (_id, blogInfo) => {
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 blogInfo.updateDate = Date.now();
                 Blog.update({ _id: _id }, { $set: blogInfo }, (err, data) => {
                     if (err) {
-                        rejects('数据库错误');
+                        reject('数据库错误');
                     } else {
                         resolve({ code: 0, msg: '修改成功', data: data });
                     }
@@ -71,10 +71,10 @@ export default class {
         };
 
         this.deleteBlog = _id => {
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 Blog.remove({ _id: _id }, err => {
                     if (err) {
-                        rejects('数据库错误');
+                        reject('数据库错误');
                     } else {
                         resolve({ code: 0, msg: '删除成功' });
                     }
@@ -83,7 +83,7 @@ export default class {
         };
 
         this.featchBlogs = (where, skip, limit) => { 
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 Blog.find(where)
                     .skip(skip)
                     .limit(limit)
@@ -99,7 +99,7 @@ export default class {
         };
 
         this.featchAllBlogs = where => { 
-            return new Promise((resolve, rejects) => {
+            return new Promise((resolve, reject) => {
                 Blog.find(where, '_id')
 					.exec((err, count) => {
 						if (err) {
