@@ -56,7 +56,7 @@ export default class {
                     if (err) {
                         reject('数据库错误');
                     } else {
-                        resolve({ code: 0, data: data });
+                        resolve({ code: 0, data: data || {} });
                     }
                 });
             })

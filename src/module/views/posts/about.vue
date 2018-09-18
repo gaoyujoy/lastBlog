@@ -36,25 +36,21 @@ export default {
     },
     methods: { 
         save(){
-            this.$refs.aboutForm.validate(isOk=>{
-                if(isOk){
-                    this.$ajaxFetch.post('/editabout', this.aboutForm, res=>{
-                        if(res.code==0){
-                            this.$Message.success('保存成功');
-                        }else{
-                            this.$Message.error(res.msg);
-                        }
-                    },error=>{
-                        this.$Message.error(error);
-                    },'保存中');
+            this.$ajaxFetch.post('/editabout', this.aboutForm, res=>{
+                if(res.code==0){
+                    this.$Message.success('保存成功');
+                }else{
+                    this.$Message.error(res.msg);
                 }
-            });
+            },error=>{
+                this.$Message.error(error);
+            },'保存中');
         },
         getData(){
             this.$ajaxFetch.post('/getabout', {}, res=>{
                 if(res.code==0){
                     if(res.data){   
-                        this.aboutForm = res.data;
+                        this.aboutForm = res.data || {content: ''};
                         this.showEditer = true;
                     }
                 }else{
