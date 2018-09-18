@@ -7,39 +7,9 @@ const router = require('koa-router')();
 const bodyparser = require('koa-bodyparser')();
 const mongoose = require('mongoose');
 import session from "koa2-cookie-session";
-var path = require('path');
 process.env.NODE_ENV = 'production'
-
-var ora = require('ora');
-var rm = require('rimraf');
-var chalk = require('chalk');
-var webpack = require('webpack');
-var config = require('./build/config');
-var webpackConfig = require('./build/webpack.prod.conf');
 import mongooseModules from './modules/modules.js'
-var spinner = ora('building for production...')
-spinner.start()
 
-rm(path.join(config.assetsRoot, config.assetsSubDirectory), err => {
-  if (err) throw err
-  webpack(webpackConfig, function (err, stats) {
-    spinner.stop()
-    if (err) throw err
-    process.stdout.write(stats.toString({
-      colors: true,
-      modules: false,
-      children: false,
-      chunks: false,
-      chunkModules: false
-    }) + '\n\n')
-
-    console.log(chalk.cyan('  Build complete.\n'))
-    console.log(chalk.yellow(
-      '  Tip: built files are meant to be served over an HTTP server.\n' +
-      '  Opening index.html over file:// won\'t work.\n'
-    ))
-  })
-})
 
 const app = new Koa();
 
@@ -58,7 +28,7 @@ app.use(convert(views(`${__dirname}/dist`)));
 const mongoOptions = {
 	user: 'gaoyu',
 	pass: 'gjy321456',
-  useMongoClient: true
+  useNewUrlParser: true
 };
 mongoose.connect(`mongodb://127.0.0.1/gaoyublog`, mongoOptions); // 数据库链接
 const db = mongoose.connection;
@@ -81,4 +51,4 @@ const addRouters = (path) => {
 addRouters(__dirname + '/routers');
 app.use(router.routes(), router.allowedMethods());
 
-let server = app.listen(process.env.PORT||3001);
+let server = app.listen(process.env.PORT||3002);

@@ -92,4 +92,4 @@ const addRouters = (path) => {
 addRouters(__dirname + '/routers');
 app.use(router.routes(), router.allowedMethods());
 
-let server = app.listen(process.env.PORT || 3001);
+let server = app.listen(process.env.PORT || 3002);
