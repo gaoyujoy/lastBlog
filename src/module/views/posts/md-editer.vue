@@ -32,7 +32,6 @@ export default {
     },
     methods: { 
         init(){
-            console.log(this.$refs.editer);
             this.simpleMd = new SimpleMDE({ 
                 element: this.$refs.editer, 
                 status: false,
