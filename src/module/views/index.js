@@ -14,7 +14,7 @@ import 'iview/dist/styles/iview.css';
 
 Vue.use(util);
 
-import { Form, FormItem, Input, Icon, Button, Select, Option, Modal, Table, Page } from 'iview';
+import { Form, FormItem, Input, Icon, Button, Select, Option, Modal, Table, Page,Message } from 'iview';
 Vue.component('Form', Form);
 Vue.component('FormItem', FormItem);
 Vue.component('Input', Input);
@@ -25,6 +25,7 @@ Vue.component('Option', Option);
 Vue.component('Modal', Modal);
 Vue.component('Table', Table);
 Vue.component('Page', Page);
+Vue.prototype.$Message = Message;
 
 
 Vue.use(VueRouter)

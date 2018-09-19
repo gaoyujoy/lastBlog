@@ -7,7 +7,7 @@ import 'assets/less/re_iview.less';
 import 'iview/dist/styles/iview.css';
 
 // Vue.use(iView);
-import { Form, FormItem, Input, Icon, Button } from 'iview';
+import { Form, FormItem, Input, Icon, Button, Message } from 'iview';
 import { ajaxFetch } from 'assets/utilComponents'
 Vue.prototype.$ajaxFetch = ajaxFetch;
 Vue.component('Form', Form);
@@ -15,8 +15,10 @@ Vue.component('FormItem', FormItem);
 Vue.component('Input', Input);
 Vue.component('Icon', Icon);
 Vue.component('Button', Button);
+Vue.prototype.$Message = Message;
 
 new Vue({
     el: '#app',
     components: { app }
 })
+
