@@ -97,7 +97,7 @@ for (var pathname in pages) {
     chunks: ['vendor', pathname], // 每个html引用的js模块
     inject: true,              // js插入位置
     favicon: path.resolve('micaiah.ico'),
-	  hash:true
+	  hash:false
   };
  
   webpackConfig.plugins.push(new HtmlWebpackPlugin(conf));
