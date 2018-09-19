@@ -20,11 +20,11 @@ var env = process.env.NODE_ENV === 'testing'
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
-      sourceMap: config.productionSourceMap,
+      sourceMap: false,
       extract: true
     })
   },
-  //devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: '#hidden-source-map',
   // output: {
   //   path: config.build.assetsRoot,
   //   /*filename: utils.assetsPath('js/[name].js'),
@@ -41,7 +41,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       compress: {
         warnings: false
       },
-      sourceMap: true
+      sourceMap: false
     }),
     // extract css into its own file
     // new ExtractTextPlugin({

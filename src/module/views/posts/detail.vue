@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import marked from 'marked'
 export default {
     data() {
         return {
@@ -65,7 +64,7 @@ export default {
             return tagName;
         },
         formatContent(){
-            return marked(this.blog.content);
+            return this.$marked(this.blog.content);
         }
     },
     methods: { 

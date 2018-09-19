@@ -8,19 +8,17 @@ var glob = require('glob');
 var entries =  utils.getMultiEntry('./src/module/**/*.js'); // 获得入口js文件
 var chunks = Object.keys(entries);
 
-console.log(chunks)
-
-var projectRoot = path.resolve(__dirname, '../')
-
 var vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-
+// Object.assign(entries, {
+//   // 用到什么公共lib（例如jquery.js），就把它加进vendor去，目的是将公用库单独提取打包
+//   'view': ['simplemde', 'highlight.js']
+// })
 var webpackConfig = {
-
-  entry:entries,
+  entry: entries,
   output: {
     path: config.assetsRoot,
     publicPath: '/',
@@ -47,7 +45,7 @@ var webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/iview')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -76,9 +74,6 @@ var webpackConfig = {
       name: 'vendor',
       chunks: chunks,
 	  	minChunks: 4 || chunks.length 
-    }),
-    new webpack.ProvidePlugin({
-      iView: "iview"
     })
 	/*
     // 提取公共模块
@@ -99,7 +94,7 @@ for (var pathname in pages) {
     //filename: pathname + '.html',
     filename: pathname + '.html',
     template: pages[pathname], // 模板路径
-    chunks: ['vendor',pathname], // 每个html引用的js模块
+    chunks: ['vendor', pathname], // 每个html引用的js模块
     inject: true,              // js插入位置
     favicon: path.resolve('micaiah.ico'),
 	  hash:true

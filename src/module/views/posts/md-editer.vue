@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import SimpleMDE from 'simplemde'
 import hljs from 'highlight.js';
 window.hljs = hljs;
