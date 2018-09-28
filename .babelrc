@@ -1,6 +1,6 @@
 {
     "presets": ["es2015","stage-3"],
-    "plugins": [["import", {
+    "plugins": ["syntax-dynamic-import",["import", {
         "libraryName": "iview",
         "libraryDirectory": "src/components"
     }]]

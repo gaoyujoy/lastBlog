@@ -2,7 +2,9 @@ var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
 var config = require('./config')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+// var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var glob = require('glob');
 var entries =  utils.getMultiEntry('./src/module/**/*.js'); // 获得入口js文件
@@ -23,7 +25,7 @@ var webpackConfig = {
     path: config.assetsRoot,
     publicPath: '/',
     filename: utils.assetsPath('[name].js'),
-    chunkFilename: '[name].js'
+    chunkFilename: utils.assetsPath('[name].js')
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -66,15 +68,54 @@ var webpackConfig = {
       
     ]
   },
+  optimization: {
+    runtimeChunk: {
+      name: 'manifest'
+    },
+    minimizer: [],
+    splitChunks: {
+      chunks: "async",
+      minSize: 30000,
+      minChunks: 4 || chunks.length,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: false,
+      cacheGroups: {
+        vendor: {
+          name: 'vendor',
+          chunks: 'initial',
+          priority: -10,
+          reuseExistingChunk: false,
+          test: /node_modules\/(.*)\.js/
+        },
+        styles: {
+          name: 'styles',
+          test: /\.(scss|css)$/,
+          chunks: 'all',
+          minChunks: 1,
+          reuseExistingChunk: true,
+          enforce: true
+        }
+      }
+    }
+  },
   plugins: [
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].css')
+    // new MiniCssExtractPlugin({
+    //   // Options similar to the same options in webpackOptions.output
+    //   // both options are optional
+    //   filename: utils.assetsPath('css/[name].css'),
+    //   chunkFilename: utils.assetsPath('css/[id].css'),
+    // })
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].css'),
+      chunkFilename: utils.assetsPath('css/[name].css')
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: chunks,
-	  	minChunks: 4 || chunks.length 
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   chunks: chunks,
+	  // 	minChunks: 4 || chunks.length 
+    // })
 	/*
     // 提取公共模块
     new webpack.optimize.CommonsChunkPlugin({
@@ -94,7 +135,7 @@ for (var pathname in pages) {
     //filename: pathname + '.html',
     filename: pathname + '.html',
     template: pages[pathname], // 模板路径
-    chunks: ['vendor', pathname], // 每个html引用的js模块
+    chunks: ['manifest','styles', pathname], // 每个html引用的js模块
     inject: true,              // js插入位置
     favicon: path.resolve('micaiah.ico'),
 	  hash:false

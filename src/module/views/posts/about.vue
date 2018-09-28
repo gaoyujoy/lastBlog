@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import mdEditer from './md-editer'
 export default {
+    name: 'about',
     data() {
         return {
             tags:[],
@@ -32,7 +32,7 @@ export default {
         this.getData();
     },
     components:{
-        mdEditer
+        'md-editer': () => import('./md-editer')
     },
     methods: { 
         save(){

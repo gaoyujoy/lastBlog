@@ -59,6 +59,9 @@ var router = new VueRouter({
                 path: '/about',
                 name: 'about',
                 component: about
+                // component: () => import('./posts/about')
+                // component: resolve => require(['./posts/about'], resolve),
+                // component: r => require.ensure([], () => r(require('./posts/about')), 'load')
             }
         ]
     }]

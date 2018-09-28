@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import mdEditer from './md-editer'
 export default {
     data() {
         return {
@@ -82,7 +81,7 @@ export default {
         }
     },
     components:{
-        mdEditer
+        'md-editer': () => import('./md-editer')
     },
     created(){
         this.featchTags();
