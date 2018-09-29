@@ -5,13 +5,9 @@ import VueRouter from 'vue-router'
 import posts from './posts/posts'
 import tags from './posts/tags'
 import change from './posts/change'
-import editPost from './posts/editPost'
-import about from './posts/about'
-import detail from './posts/detail'
 import layout from 'components/layout'
 import util from 'assets/utils'
 import 'iview/dist/styles/iview.css';
-
 Vue.use(util);
 
 import { Form, FormItem, Input, Icon, Button, Select, Option, Modal, Table, Page,Message } from 'iview';
@@ -50,18 +46,15 @@ var router = new VueRouter({
             }, {
                 path: '/posts/edit',
                 name: 'add',
-                component: editPost
+                component: () => import('./posts/editPost')
             }, {
                 path: '/posts/detail',
                 name: 'detail',
-                component: detail
+                component: () => import('./posts/detail')
             }, {
                 path: '/about',
                 name: 'about',
-                component: about
-                // component: () => import('./posts/about')
-                // component: resolve => require(['./posts/about'], resolve),
-                // component: r => require.ensure([], () => r(require('./posts/about')), 'load')
+                component: () => import('./posts/about')
             }
         ]
     }]

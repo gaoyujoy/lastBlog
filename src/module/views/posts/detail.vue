@@ -24,12 +24,23 @@
                     </li>
                 </ul>
             </div>
-            <div class="detail-content-content" v-html="formatContent"></div>
+            <div class="detail-content-content" v-html="formatContent" v-highlight></div>
         </div>
     </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import hljs from 'highlight.js';
+import 'highlight.js/styles/railscasts.css'
+import 'assets/less/markdown.css'
+window.hljs = hljs;
+Vue.directive('highlight',function (el) {
+    let blocks = el.querySelectorAll('pre code');
+    blocks.forEach((block)=>{
+      hljs.highlightBlock(block)
+    })
+})
 export default {
     data() {
         return {

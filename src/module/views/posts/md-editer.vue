@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import SimpleMDE from 'simplemde'
 import hljs from 'highlight.js';
+import 'highlight.js/styles/railscasts.css'
+import 'assets/less/markdown.css'
 window.hljs = hljs;
+import SimpleMDE from 'simplemde'
 import 'simplemde/dist/simplemde.min.css'
 import 'inline-attachment/src/inline-attachment'
 import 'inline-attachment/src/codemirror-4.inline-attachment'
-import 'highlight.js/styles/atom-one-dark.css';
-
 export default {
     name: 'md-editer',
     data() {
