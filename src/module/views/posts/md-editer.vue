@@ -56,7 +56,7 @@ export default {
                 uploadFieldName:'upfile',
                 onFileUploadResponse: function(xhr) {
                     var result = JSON.parse(xhr.responseText),
-                    filename = result.data.path;
+                    filename = `http://file.micaiah.cn/${result.data.path}`;
                     if (result && filename) {
                         var newValue;
                         if (typeof this.settings.urlText === 'function') {
