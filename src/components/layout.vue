@@ -25,7 +25,9 @@ export default {
 
 <style  lang="less" scoped>
     .layout{
-        height: 100%;
+        // height: 100%;
+        min-height: 100%;
+        position: relative;
         .layout-content{
             padding: 90px 30px 0 210px;
         }

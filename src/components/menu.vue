@@ -40,7 +40,7 @@ export default {
 <style  lang="less" scoped>
     .menu{
         width: 180px;
-        height: 100%;
+        // height: 100%;
         background-color: #eee;
         position: absolute;
         z-index: 1;
@@ -48,6 +48,7 @@ export default {
         left: 0;
         font-size: 14px;
         border-right: 1px solid #ddd;
+        min-height: 100%;
         .menu-ul{
             margin-top: 60px;
             .menu-ul-li{
